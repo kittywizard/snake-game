@@ -1,0 +1,17 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 10px;
+    padding: 10px;
+}
+
+/* each square is 20px */
+.grid {
+    height: 200px;
+    width: 200px;
+    border: 1px solid #000;
+}
+
+.grid div {
+    width: 20px;
+    height: 20px;
+}
