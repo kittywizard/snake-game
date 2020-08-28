@@ -36,8 +36,38 @@ function move() {
 
     //adding a new element in the direction (just right for now)
     currentSnake.unshift(currentSnake[0] + direction);
+
     //add the styling to the current snake (in the grid array as well) 
     squareArr[currentSnake[0]].classList.add('snake');
 }
 
-move();
+
+//const timerId = setInterval(move, 1000);
+
+//KeyCodes
+//W - 87
+//A - 65
+//S - 83
+//D - 68
+
+function control(e){
+    console.log('running control function');
+    //can this be done with a switch?
+
+    if(e.keyCode === 87){
+        //w
+        console.log('w');
+    } else if(e.keyCode === 65) {
+        //a
+        console.log('a');
+    } else if(e.keyCode === 83){
+        //s
+        console.log('s');
+    } else if(e.keyCode === 68) {
+        //d
+        console.log('d');
+    }
+
+}
+
+//document.addEventListener('keyup', control);
