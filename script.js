@@ -29,6 +29,15 @@ currentSnake.forEach(index => squareArr[index].classList.add('snake'));
 
 function move() {
 
+    //this mess is determining if the snake is hitting any of the walls or itself
+    if /* bottom */ ((currentSnake[0] + width >= 100  && direction === width) ||
+       /* right wall */ (currentSnake[0] % width === 9 && direction === 1) ||
+       /* left wall */ (currentSnake[0] % width=== 10 && direction === -1) ||
+       /* top */ (currentSnake[0] + width < 10 && direction === -width) ||
+       /* snake */ (squares[currentSnake[0] + direction].classList.contains('snake'))) {
+
+        return clearInterval(timerId);
+    }
     //pop the tail off the snake and store it
     const tail = currentSnake.pop();
     
@@ -43,7 +52,7 @@ function move() {
 }
 
 
-//const timerId = setInterval(move, 1000);
+const timerId = setInterval(move, 1000);
 
 //KeyCodes
 //W - 87
