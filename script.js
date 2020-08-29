@@ -4,6 +4,7 @@ const button = document.getElementById('start');
 let squareArr = [];
 let currentSnake = [2, 1, 0];
 let direction = 1;
+let width = 10;
 
 function createGrid() {
 
@@ -51,23 +52,25 @@ function move() {
 //D - 68
 
 function control(e){
-    console.log('running control function');
+
     //can this be done with a switch?
+        //or some other better, less messy fashion?
 
     if(e.keyCode === 87){
-        //w
-        console.log('w');
+        //w - up
+        direction = -width;
     } else if(e.keyCode === 65) {
-        //a
-        console.log('a');
+        //a - left
+        direction = -1;
     } else if(e.keyCode === 83){
-        //s
-        console.log('s');
+        //s - down
+        direction = +width;
     } else if(e.keyCode === 68) {
-        //d
-        console.log('d');
+        //d - right
+        direction = 1;
     }
 
 }
 
-//document.addEventListener('keyup', control);
+//need to use keyup, otherwise other event listener types give you a different response. idk why
+document.addEventListener('keyup', control);
