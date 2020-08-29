@@ -4,7 +4,8 @@ const button = document.getElementById('start');
 let squareArr = [];
 let currentSnake = [2, 1, 0];
 let direction = 1;
-let width = 10;
+const width = 10;
+let appleIndex = 0;
 
 function createGrid() {
 
@@ -20,7 +21,6 @@ function createGrid() {
     }
  
 }
-
 createGrid();
 
 //index is whatever position the array is at currently
@@ -30,11 +30,11 @@ currentSnake.forEach(index => squareArr[index].classList.add('snake'));
 function move() {
 
     //this mess is determining if the snake is hitting any of the walls or itself
-    if /* bottom */ ((currentSnake[0] + width >= 100  && direction === width) ||
-       /* right wall */ (currentSnake[0] % width === 9 && direction === 1) ||
-       /* left wall */ (currentSnake[0] % width=== 10 && direction === -1) ||
-       /* top */ (currentSnake[0] + width < 10 && direction === -width) ||
-       /* snake */ (squares[currentSnake[0] + direction].classList.contains('snake'))) {
+    if /* bottom */ ((currentSnake[0] + width >= (width*width)  && direction === width) ||
+       /* right wall */ (currentSnake[0] % width === (width-1) && direction === 1) ||
+       /* left wall */ (currentSnake[0] % width === width && direction === -1) ||
+       /* top */ (currentSnake[0] + width < width && direction === -width) ||
+       /* snake */ (squareArr[currentSnake[0] + direction].classList.contains('snake'))) {
 
         return clearInterval(timerId);
     }
@@ -50,9 +50,6 @@ function move() {
     //add the styling to the current snake (in the grid array as well) 
     squareArr[currentSnake[0]].classList.add('snake');
 }
-
-
-const timerId = setInterval(move, 1000);
 
 //KeyCodes
 //W - 87
@@ -81,5 +78,15 @@ function control(e){
 
 }
 
+function generateApples() {
+    do {
+        appleIndex = Math.floor(Math.random() * squareArr.length);
+    } while(squareArr[appleIndex].classList.contains('snake'));
+
+    squareArr[appleIndex].classList.add('apple');
+}
+
+generateApples();
 //need to use keyup, otherwise other event listener types give you a different response. idk why
 document.addEventListener('keyup', control);
+const timerId = setInterval(move, 1000);
