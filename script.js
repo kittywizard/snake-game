@@ -1,12 +1,20 @@
+//UI elements
 const grid = document.querySelector('.grid');
 const score = document.getElementById('score');
 const button = document.getElementById('start');
+
+//snake variables
 let squareArr = [];
 let currentSnake = [2, 1, 0];
 let direction = 1;
 const width = 10;
 let appleIndex = 0;
 let scoreNum = 0;
+
+//timer variables
+let timerId = 0;
+let time = 1000;
+let speed = 0.9;
 
 function createGrid() {
 
@@ -27,6 +35,10 @@ createGrid();
 //index is whatever position the array is at currently
 //=> arrow function to add each of the snake's positions into the grid
 currentSnake.forEach(index => squareArr[index].classList.add('snake'));
+
+function startGame() {
+    timerId = setInterval(move, time);
+}
 
 function move() {
 
@@ -66,6 +78,9 @@ function move() {
         score.textContent = scoreNum;
 
         //speed up the snake
+        clearInterval(timerId);
+        time = time * speed;
+        timerId = setInterval(move, time);
     }
 
     //add the styling to the current snake
@@ -105,27 +120,9 @@ function generateApples() {
 
 generateApples();
 
-// function eatApples() {
-//     //grow the snake by one
-//         //add snake class
-//         //bigger array
-
-//     //add to the score
-
-//     //speed up the snake
-
-//         //ania uses the classlist instead: squareArr[currentSnake[0]].classList.contains('apple')
-//     if(squareArr[currentSnake[0]] === squareArr[appleIndex]) {
-//         squareArr[appleIndex].classList.remove('apple');
-
-//         //grow the snake
-//         squareArr[tail].classList.add('snake');
-//         console.log(tail);
-
-//         //generate new apples
-//         generateApples();
-//     }
-// }
 //need to use keyup, otherwise other event listener types give you a different response. idk why
 document.addEventListener('keyup', control);
-const timerId = setInterval(move, 1000);
+
+//need an event listener for the button, but what function does it run?
+button.addEventListener('click', startGame);
+
