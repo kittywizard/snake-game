@@ -6,6 +6,7 @@ let currentSnake = [2, 1, 0];
 let direction = 1;
 const width = 10;
 let appleIndex = 0;
+let scoreNum = 0;
 
 function createGrid() {
 
@@ -59,6 +60,12 @@ function move() {
 
         //generate new apples
         generateApples();
+
+        //scoring
+        scoreNum++;
+        score.textContent = scoreNum;
+
+        //speed up the snake
     }
 
     //add the styling to the current snake
