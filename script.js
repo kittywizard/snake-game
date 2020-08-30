@@ -49,8 +49,17 @@ function move() {
     //adding a new element in the direction
     currentSnake.unshift(currentSnake[0] + direction);
 
-    //eating apple function can go here
-    eatApples();
+    //adding the eating apple function here. change later, variables are being stupid
+    if (squareArr[currentSnake[0]].classList.contains('apple')) {
+        squareArr[appleIndex].classList.remove('apple');
+
+        //grow the snake
+        squareArr[tail].classList.add('snake');
+        currentSnake.push(tail);
+
+        //generate new apples
+        generateApples();
+    }
 
     //add the styling to the current snake
     squareArr[currentSnake[0]].classList.add('snake');
@@ -89,25 +98,27 @@ function generateApples() {
 
 generateApples();
 
-function eatApples() {
-    //grow the snake by one
-        //add snake class
-        //bigger array
+// function eatApples() {
+//     //grow the snake by one
+//         //add snake class
+//         //bigger array
 
-    //add to the score
+//     //add to the score
 
-    //speed up the snake
+//     //speed up the snake
 
-        //ania uses the classlist instead: squareArr[currentSnake[0]].classList.contains('apple')
-    if(squareArr[currentSnake[0]] === squareArr[appleIndex]) {
-        squareArr[appleIndex].classList.remove('apple');
+//         //ania uses the classlist instead: squareArr[currentSnake[0]].classList.contains('apple')
+//     if(squareArr[currentSnake[0]] === squareArr[appleIndex]) {
+//         squareArr[appleIndex].classList.remove('apple');
 
-        //grow the snake
+//         //grow the snake
+//         squareArr[tail].classList.add('snake');
+//         console.log(tail);
 
-        //generate new apples
-        generateApples();
-    }
-}
+//         //generate new apples
+//         generateApples();
+//     }
+// }
 //need to use keyup, otherwise other event listener types give you a different response. idk why
 document.addEventListener('keyup', control);
 const timerId = setInterval(move, 1000);
