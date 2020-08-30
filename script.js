@@ -37,7 +37,33 @@ createGrid();
 currentSnake.forEach(index => squareArr[index].classList.add('snake'));
 
 function startGame() {
-    timerId = setInterval(move, time);
+
+    //remove the snake
+    currentSnake.forEach(index => squareArr[index].classList.remove('snake'));
+
+    //remove the apples
+    squareArr[appleIndex].classList.remove('apple');
+
+    clearInterval(timerId);
+
+    //reset all the variables
+     currentSnake = [2, 1, 0];
+     direction = 1;
+     appleIndex = 0;
+     scoreNum = 0;
+
+     timerId = 0;
+     time = 1000;
+     speed = 0.9;
+
+     score.textContent = score;
+
+     generateApples();
+
+     //add class of snake to currentSnake
+     currentSnake.forEach(index => squareArr[index].classList.add('snake'));
+
+     timerId = setInterval(move, time);
 }
 
 function move() {
@@ -87,13 +113,14 @@ function move() {
     squareArr[currentSnake[0]].classList.add('snake');
 }
 
-//KeyCodes
-//W - 87
-//A - 65
-//S - 83
-//D - 68
-
 function control(e){
+    
+    //KeyCodes
+    //W - 87
+    //A - 65
+    //S - 83
+    //D - 68
+
     if(e.keyCode === 87){
         //w - up
         direction = -width;
@@ -118,11 +145,7 @@ function generateApples() {
     squareArr[appleIndex].classList.add('apple');
 }
 
-generateApples();
-
-//need to use keyup, otherwise other event listener types give you a different response. idk why
 document.addEventListener('keyup', control);
 
-//need an event listener for the button, but what function does it run?
 button.addEventListener('click', startGame);
 
