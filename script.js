@@ -34,7 +34,9 @@ function move() {
        /* right wall */ (currentSnake[0] % width === (width-1) && direction === 1) ||
        /* left wall */ (currentSnake[0] % width === width && direction === -1) ||
        /* top */ (currentSnake[0] + width < width && direction === -width) ||
-       /* snake */ (squareArr[currentSnake[0] + direction].classList.contains('snake'))) {
+       /* snake - 
+                there's an error here when the snake eats an apple and then hits a wall */ 
+                (squareArr[currentSnake[0] + direction].classList.contains('snake'))) {
 
         return clearInterval(timerId);
     }
@@ -42,12 +44,15 @@ function move() {
     const tail = currentSnake.pop();
     
     //removing the styling by finding the tail position in the original array and removing the style
-    squareArr[tail].classList.remove('snake');
+    squareArr[tail].classList.remove('snake'); /* error here sometimes */
 
-    //adding a new element in the direction (just right for now)
+    //adding a new element in the direction
     currentSnake.unshift(currentSnake[0] + direction);
 
-    //add the styling to the current snake (in the grid array as well) 
+    //eating apple function can go here
+    eatApples();
+
+    //add the styling to the current snake
     squareArr[currentSnake[0]].classList.add('snake');
 }
 
@@ -58,10 +63,6 @@ function move() {
 //D - 68
 
 function control(e){
-
-    //can this be done with a switch?
-        //or some other better, less messy fashion?
-
     if(e.keyCode === 87){
         //w - up
         direction = -width;
@@ -87,6 +88,26 @@ function generateApples() {
 }
 
 generateApples();
+
+function eatApples() {
+    //grow the snake by one
+        //add snake class
+        //bigger array
+
+    //add to the score
+
+    //speed up the snake
+
+        //ania uses the classlist instead: squareArr[currentSnake[0]].classList.contains('apple')
+    if(squareArr[currentSnake[0]] === squareArr[appleIndex]) {
+        squareArr[appleIndex].classList.remove('apple');
+
+        //grow the snake
+
+        //generate new apples
+        generateApples();
+    }
+}
 //need to use keyup, otherwise other event listener types give you a different response. idk why
 document.addEventListener('keyup', control);
 const timerId = setInterval(move, 1000);
